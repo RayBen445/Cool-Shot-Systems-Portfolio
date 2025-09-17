@@ -67,9 +67,14 @@ export const SKILLS: SkillCategory[] = [
     skills: [
       { name: 'React', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
       { name: 'TypeScript', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
+      { name: 'JavaScript (ES6+)', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
       { name: 'Tailwind CSS', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
       { name: 'Next.js', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
+      { name: 'Vue.js', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
       { name: 'HTML5 & CSS3', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
+      { name: 'Sass/SCSS', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
+      { name: 'Bootstrap', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
+      { name: 'Responsive Design', icon: <CodeIcon className="w-6 h-6 mr-3 text-cyan-500" /> },
     ],
   },
   {
@@ -77,8 +82,14 @@ export const SKILLS: SkillCategory[] = [
     skills: [
       { name: 'Node.js', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
       { name: 'Express', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'Python', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'FastAPI', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
       { name: 'PostgreSQL', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'MongoDB', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'MySQL', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
       { name: 'REST APIs', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'GraphQL', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
+      { name: 'JWT Authentication', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-green-500" /> },
     ],
   },
   {
@@ -86,8 +97,34 @@ export const SKILLS: SkillCategory[] = [
     skills: [
       { name: 'Git & GitHub', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
       { name: 'Docker', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'Kubernetes', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'AWS Services', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'Vercel', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'Netlify', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
       { name: 'Vite', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'Webpack', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
       { name: 'Figma', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+      { name: 'Adobe Creative Suite', icon: <ToolIcon className="w-6 h-6 mr-3 text-orange-500" /> },
+    ],
+  },
+  {
+    title: 'Mobile & Cross-Platform',
+    skills: [
+      { name: 'React Native', icon: <CodeIcon className="w-6 h-6 mr-3 text-purple-500" /> },
+      { name: 'Flutter', icon: <CodeIcon className="w-6 h-6 mr-3 text-purple-500" /> },
+      { name: 'Expo', icon: <CodeIcon className="w-6 h-6 mr-3 text-purple-500" /> },
+      { name: 'Progressive Web Apps', icon: <CodeIcon className="w-6 h-6 mr-3 text-purple-500" /> },
+    ],
+  },
+  {
+    title: 'Other Technologies',
+    skills: [
+      { name: 'Firebase', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
+      { name: 'Supabase', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
+      { name: 'Stripe Integration', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
+      { name: 'Socket.io', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
+      { name: 'WebRTC', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
+      { name: 'Machine Learning (Python)', icon: <DatabaseIcon className="w-6 h-6 mr-3 text-red-500" /> },
     ],
   },
 ];
