@@ -52,17 +52,21 @@ const SupportPage: React.FC = () => {
     setSubmissionStatus('idle');
 
     try {
-      // Format message for Telegram
+      // Format message for Telegram with enhanced design
       const telegramMessage = `
-🔔 <b>New Support Message</b>
+🌟 <b>NEW CONTACT MESSAGE</b> 🌟
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-<b>Name:</b> ${formData.name}
-<b>Email:</b> ${formData.email}
+👤 <b>Contact Details:</b>
+   • <b>Name:</b> ${formData.name}
+   • <b>Email:</b> ${formData.email}
 
-<b>Message:</b>
-${formData.message}
+💬 <b>Message:</b>
+<code>${formData.message}</code>
 
-<i>Sent from Cool Shot Systems Portfolio</i>
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 <i>Sent from Cool Shot Systems Portfolio</i>
+⏰ <i>${new Date().toLocaleString()}</i>
       `.trim();
 
       await sendTelegramMessage(telegramMessage);
