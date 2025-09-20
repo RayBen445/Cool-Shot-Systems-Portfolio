@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
           className="w-40 h-40 rounded-full bg-[#e0e5ec] p-2 shadow-[inset_7px_7px_15px_#a3b1c6,inset_-7px_-7px_15px_#ffffff]"
         >
           <img
-            src="https://picsum.photos/seed/profile/200"
+            src="https://files.catbox.moe/172avo.jpg"
             alt="Heritage Oladoye"
             className="w-full h-full rounded-full object-cover"
           />

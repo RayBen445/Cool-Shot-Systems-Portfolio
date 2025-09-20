@@ -10,65 +10,90 @@ const SupportPage: React.FC = () => {
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submissionMessage, setSubmissionMessage] = useState('');
 
-  // IMPORTANT: Replace this with your own Formspree endpoint URL.
-  // Go to formspree.io to create a new form and get your endpoint.
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your_unique_id';
-  const isEndpointConfigured = FORMSPREE_ENDPOINT !== 'https://formspree.io/f/your_unique_id';
+  // Telegram Bot Configuration
+  const TELEGRAM_BOT_TOKEN = '8442728826:AAE4Xm47-gbL5FqDjWRK3WcOiYwjSs8WSC8';
+  const TELEGRAM_USER_ID = '6649936329';
+  const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const sendTelegramMessage = async (message: string) => {
+    // Note: Direct browser-to-Telegram API calls will be blocked by CORS in production.
+    // For production use, this should be proxied through a backend service or 
+    // use a CORS proxy service.
+    const response = await fetch(TELEGRAM_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_USER_ID,
+        text: message,
+        parse_mode: 'HTML'
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Telegram API error: ${errorData.description || 'Unknown error'}`);
+    }
+
+    return response.json();
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmitting || !isEndpointConfigured) return;
+    if (isSubmitting) return;
 
     setIsSubmitting(true);
     setSubmissionStatus('idle');
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // Format message for Telegram with enhanced design
+      const telegramMessage = `
+🌟 <b>NEW CONTACT MESSAGE</b> 🌟
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-      if (response.ok) {
-        setSubmissionStatus('success');
-        setSubmissionMessage('Thank you! Your message has been sent successfully.');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        const errorData = await response.json();
-        console.error('Formspree API error:', JSON.stringify(errorData, null, 2));
-        setSubmissionStatus('error');
-        setSubmissionMessage('Sorry, something went wrong. Please try again later.');
-      }
+👤 <b>Contact Details:</b>
+   • <b>Name:</b> ${formData.name}
+   • <b>Email:</b> ${formData.email}
+
+💬 <b>Message:</b>
+<code>${formData.message}</code>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 <i>Sent from Cool Shot Systems Portfolio</i>
+⏰ <i>${new Date().toLocaleString()}</i>
+      `.trim();
+
+      await sendTelegramMessage(telegramMessage);
+      
+      setSubmissionStatus('success');
+      setSubmissionMessage('Thank you! Your message has been sent successfully via Telegram.');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Failed to send message:', error);
       setSubmissionStatus('error');
-      setSubmissionMessage('A network error occurred. Please check your connection and try again.');
+      setSubmissionMessage('Sorry, something went wrong. Please try again later or contact us directly.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Get In Touch</h1>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto w-full">
         <NeumorphicCard padding="p-8">
+          <div className="mb-6 text-center">
+            <p className="text-gray-600">
+              Send us a message and we'll get back to you via Telegram! 📱
+            </p>
+          </div>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {!isEndpointConfigured && (
-              <div role="alert" className="bg-yellow-100 text-yellow-800 p-4 rounded-lg text-sm font-medium text-center">
-                <strong>Action Required:</strong> To enable this form, please replace the placeholder URL in{' '}
-                <code className="font-mono bg-yellow-200 p-1 rounded">pages/SupportPage.tsx</code>{' '}
-                with your own Formspree endpoint.
-              </div>
-            )}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-600 mb-2">Full Name</label>
               <NeumorphicInput 
@@ -79,7 +104,6 @@ const SupportPage: React.FC = () => {
                 required 
                 value={formData.name}
                 onChange={handleChange}
-                disabled={!isEndpointConfigured}
               />
             </div>
             <div>
@@ -92,7 +116,6 @@ const SupportPage: React.FC = () => {
                 required 
                 value={formData.email}
                 onChange={handleChange}
-                disabled={!isEndpointConfigured}
               />
             </div>
             <div>
@@ -106,11 +129,10 @@ const SupportPage: React.FC = () => {
                 required 
                 value={formData.message}
                 onChange={handleChange}
-                disabled={!isEndpointConfigured}
               />
             </div>
             
-            {submissionStatus !== 'idle' && isEndpointConfigured && (
+            {submissionStatus !== 'idle' && (
               <div
                 role="alert"
                 aria-live="polite"
@@ -123,7 +145,7 @@ const SupportPage: React.FC = () => {
             )}
 
             <div className="text-center pt-4">
-              <NeumorphicButton type="submit" padding="py-3 px-8 text-lg" disabled={isSubmitting || !isEndpointConfigured}>
+              <NeumorphicButton type="submit" padding="py-3 px-8 text-lg" disabled={isSubmitting}>
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </NeumorphicButton>
             </div>
